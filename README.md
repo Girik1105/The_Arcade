@@ -18,3 +18,6 @@ To run The Arcade:
 ```
 python the_arcade.py
 ```
+
+# Upcoming Updates:
+Songs by more artists, more games!!!
