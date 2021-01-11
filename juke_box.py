@@ -22,253 +22,261 @@ import threading
 
 def go_back():
     os.system('the_arcade.py')
-  
+
 
 def play_time():
     current_time= pygame.mixer.music.get_pos()/1000
-    
+
     converted_current_time=time.strftime('%M:%S',time.gmtime(current_time))
-    
-       
+
+
 
     song=song_box.get(ACTIVE)
     song= f'JukeBox/Eminem_Music/{song}.mp3'
-    
+
     # mutagen
-    
+
     song_mut=MP3(song)
     song_length=song_mut.info.length
     converted_song_length=time.strftime('%M:%S',time.gmtime(song_length))
-        
-    
-    
+
+
+
     status_bar.config(text=f'Time Elapsed: {converted_current_time}  of  {converted_song_length}',font=5)
-    
+
 
     status_bar.after(1000,play_time)
-    
-    
+
+
 
 def change_volume(val):
 
-    
+    song =  None
+
+
     volume = int(val)/100
     pygame.mixer.music.set_volume(volume)
- 
-    
-    song_box.insert(END, song)
-    
-# ========================================================================================================
 
+
+    song_box.insert(END, song)
+
+# ========================================================================================================
+def add_from_pc():
+    songs = filedialog.askopenfilenames(initialdir='C:\\users',title="Choose the folder",filetypes=(("mp3 files","*.mp3"),))
+
+    for song in songs:
+        # for subdirs, dirs, files in walk('Eminem_Music/'):
+            song = song.replace("","")
+
+            song = song.replace(".mp3","")
+
+            song_box.insert(END, song)
 
 def add_eminem():
     songs = list_of_songs('JukeBox/Eminem_Music')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'JukeBox/Eminem_Music/{song}'
-            
+
             song = song.replace(".mp3","")
-        
+
             song_box.insert(END, song)
-            
+
 def side_b():
     songs = list_of_songs('JukeBox/Eminem_Music/Side b')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Side b/{song}'
-            
+
             song = song.replace(".mp3","")
-        
+
             song_box.insert(END, song)
-            
-            
-            
+
+
 def Kamikaze():
     songs = list_of_songs('JukeBox/Eminem_Music/Kamikaze')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Kamikaze/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)          
-            
-            
-            
-            
+
+            song_box.insert(END, song)
+
+
 def Revival():
     songs = list_of_songs('JukeBox/Eminem_Music/Revival')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Revival/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)            
-            
-            
+
+            song_box.insert(END, song)
+
+
 def MMLP2():
     songs = list_of_songs('JukeBox/Eminem_Music/MMPL2')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'MMLP2/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)           
-            
-            
+
+            song_box.insert(END, song)
+
+
 def Recovery():
     songs = list_of_songs('JukeBox/Eminem_Music/Recovery(deluxe)')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Recovery(deluxe)/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)            
-            
-            
-            
+
+            song_box.insert(END, song)
+
+
+
 def Relapse():
     songs = list_of_songs('JukeBox/Eminem_Music/Relapse')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Relapse/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)            
-            
-            
+
+            song_box.insert(END, song)
+
+
 def Just_Lose_it():
     songs = list_of_songs('JukeBox/Eminem_Music/Just Lose It')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Just Lose It/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)           
-            
-            
+
+            song_box.insert(END, song)
+
+
 def Encore():
     songs = list_of_songs('JukeBox/Eminem_Music/Encore')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Encore/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)            
-            
-            
+
+            song_box.insert(END, song)
+
+
 def The_Eminem_show():
     songs = list_of_songs('JukeBox/Eminem_Music/The Eminem Show')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'The Eminem Show/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)            
-            
-            
+
+            song_box.insert(END, song)
+
+
 def MMLP():
     songs = list_of_songs('JukeBox/Eminem_Music/MMLP')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'MMLP/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)            
-            
-            
+
+            song_box.insert(END, song)
+
+
 def Slim_Shady_LP():
     songs = list_of_songs('JukeBox/Eminem_Music/Slim Shady LP')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Slim Shady LP/{song}'
-            
+
             song = song.replace(".mp3","")
-        
-            song_box.insert(END, song)            
-            
-                       
+
+            song_box.insert(END, song)
+
+
 
 def MTBMB():
     songs = list_of_songs('JukeBox/Eminem_Music/Music To Be Murdered By')
     for song in songs:
         # for subdirs, dirs, files in walk('Eminem_Music/'):
             song = f'Music To Be Murdered By/{song}'
-            
+
             song = song.replace(".mp3","")
-        
+
             song_box.insert(END, song)
-            
 
 
-  
+
+
 def next_song():
-    
+
     current_song=song_box.curselection()
 
     next_one=current_song[0]+1
 
     song=song_box.get(next_one)
     song= f'JukeBox/Eminem_Music/{song}.mp3'
-    
+
     pygame.mixer.music.load(song)
     pygame.mixer.music.play(loops=0)
-    
+
     song_box.selection_clear(0,END)
-    
+
     song_box.activate(next_one)
     song_box.selection_set(next_one,last=None)
 
-    
+
 def previous_song():
-    
+
     current_song=song_box.curselection()
     previous_one=current_song[0]-1
     song=song_box.get(previous_one)
 
     song= f'JukeBox/Eminem_Music/{song}.mp3'
-    
+
     pygame.mixer.music.load(song)
     pygame.mixer.music.play(loops=0)
-    
+
     song_box.selection_clear(0,END)
-    
+
     song_box.activate(previous_one)
     song_box.selection_set(next_one,last=None)
 
-    
+
 def stop_music():
     pygame.mixer.music.stop()
     status_bar.config(text="")
     song_box.selection_clear(song_box.curselection())
-    
-    
-    
+
+
+
 
 global paused
 paused=False
 
 def pause_music(is_paused):
     global paused
-    
+
     paused= is_paused
-    
+
     if paused:
         pygame.mixer.music.unpause()
         paused=False
     else:
         pygame.mixer.music.pause()
         paused=True
-        
-        
+
+
 def delete_song():
     song_box.delete(ANCHOR)
     pygame.mixer.music.stop()
@@ -279,13 +287,13 @@ def delete_all_songs():
 
 
 
-def play_music():    
+def play_music():
     song=song_box.get(ACTIVE)
-    song= f'JukeBox/Eminem_Music/{song}.mp3' 
-    
+    song= f'JukeBox/Eminem_Music/{song}.mp3'
+
     pygame.mixer.music.load(song)
     pygame.mixer.music.play(loops=0)
-    
+
     play_time()
     song_box.curselection()
 
@@ -359,7 +367,7 @@ gobacklabel = Label(root)
 # stop_btn_label.config(image=stop_btn_img)
 back_btn = Button(root,text='go back',command=threading.Thread(target = go_back).start())
 
-   
+
 
 # creating volume slider
 controls_frame2=Frame(root)
@@ -423,7 +431,9 @@ add_eminem_songs.add_separator()
 # add_eminem_songs.add_command(label = 'The Slim Shady LP', command=Slim_Shady_LP)
 # add_eminem_songs.add_separator()
 
-
+#sub menu
+#for pc music
+#addsong_menu.add_command(label="Add songs from your computer",command=add_from_pc)
 
 delete_song_menu = Menu(my_menu, tearoff = False)
 my_menu.add_cascade(label="Remove Songs",menu=delete_song_menu)
@@ -440,4 +450,3 @@ copy_right=Label(root,text='Copyright @2020 "Armaan And Girik"',anchor=S)
 copy_right.pack(fill=X,side=BOTTOM)
 
 root.mainloop()
-
