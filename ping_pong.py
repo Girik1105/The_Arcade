@@ -272,7 +272,7 @@ while True:
             if event.key == pg.K_m:
                     
                 pg.quit()
-                os.system('interface.py')
+                os.system('the_arcade.py')
         
         #checking if the user unpresses a key
         if event.type == pg.KEYUP:

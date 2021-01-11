@@ -216,7 +216,7 @@ def main_game():
                 if event.key == pygame.K_m:
                     pygame.quit()
                     # sys.exit()
-                    os.system('interface.py 1')
+                    os.system('the_arcade.py 1')
                     
                     
     

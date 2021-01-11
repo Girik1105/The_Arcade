@@ -21,7 +21,7 @@ import threading
 # ==========================================================================
 
 def go_back():
-    os.system('interface.py')
+    os.system('the_arcade.py')
   
 
 def play_time():

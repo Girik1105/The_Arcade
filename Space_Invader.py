@@ -53,7 +53,7 @@ MY_SPACESHIP = pygame.image.load(os.path.join("Space/graphics", "spaceship2.png"
 # Background and scaling (cool boy)
 BG = pygame.transform.scale(pygame.image.load(os.path.join("Space/graphics", "background.png")),(HEIGHT,WIDTH))
 
-
+# general laser class
 class Laser:
     def __init__(self, x, y, img):
         self.x = x
@@ -195,7 +195,7 @@ def main():
     level = 0
     lives = 5
     main_font = pygame.font.SysFont("comicsans", 45)
-    lost_font = pygame.font.SysFont('sitkasmallsitkatextbolditalicsitkasubheadingbolditalicsitkaheadingbolditalicsitkadisplaybolditalicsitkabannerbolditalic', 60)
+    lost_font = pygame.font.Font('Space/game_over.ttf', 175)
     
     player= Player(415,750)
     
@@ -210,6 +210,9 @@ def main():
     lost = False
     lost_count = 0
     
+    
+     # draws every event on the display
+     
     def redraw_window():
         SCREEN.blit(BG,(0,0))
         # draw text
@@ -220,19 +223,20 @@ def main():
         SCREEN.blit(level_label, (WIDTH - level_label.get_width()-10,10))
         
         
+        # draws enemies on the screen
         for enemy in enemies:
             enemy.draw(SCREEN)
        
         player.draw(SCREEN)
         
+        # game over animation
         if lost:
             lost_label = lost_font.render("GAME OVER!", 1, (255,140,0))
             SCREEN.blit(lost_label,(WIDTH/2 - lost_label.get_width()/2, 350))
             
-            
-            
         pygame.display.update()
     
+
     while running:
         clock.tick(FPS)
         
@@ -248,16 +252,15 @@ def main():
             else:
                continue
         
-        
+        # checks for losing condition
         if len(enemies) == 0:
             level += 1
             wave_length += 5
             for i in range(wave_length):
                 enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1300,-100), random.choice(["red","green","purple"]))
                 enemies.append(enemy)
-                # special_enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-5000,-4000), random.choice(["gold"]))
-                # enemies.append(special_enemy)
-        
+                
+        # checks if the close button has been pressed
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -289,11 +292,10 @@ def main():
         elif keys[pygame.K_DOWN] and player.y + player_vel<HEIGHT -100:
             player.y+=player_vel    
             
-            
+        # shoot // SPACEBAR
         if keys[pygame.K_SPACE]:
             player.shoot()
-            # laser_sound = pygame.mixer.Sound('laser_sound.mp3')
-            # laser_sound.play()
+
             
         for enemy in enemies:
             enemy.move(enemy_vel)
@@ -319,10 +321,10 @@ def main():
         player.move_lasers(laser_vel, enemies)
 
     
-
+# main menu after losing 
 def main_menu():
-    info_font = pygame.font.Font("prstart.ttf", 20)
-    title_font = pygame.font.Font("INVASION2000.ttf", 70)
+    info_font = pygame.font.Font("Space/prstart.ttf", 20)
+    title_font = pygame.font.Font("Space/INVASION2000.ttf", 70)
     run = True
     while run:
         SCREEN.blit(BG, (0,0))
@@ -343,7 +345,7 @@ def main_menu():
                 if event.key == pygame.K_m:
                     
                     pygame.quit()
-                    os.system('interface.py')
+                    os.system('the_arcade.py')
                     
             
             if event.type == pygame.KEYDOWN:

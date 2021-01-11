@@ -182,14 +182,14 @@ def run_interface():
         def juke_box(self):
            
             pygame.quit()
-            os.system('graphics_module.py')        
+            os.system('juke_box.py')        
             
             
             
         
         def run_space(self):
             pygame.mixer.music.stop()
-            pygame.mixer.music.load('space_music.mp3')
+            pygame.mixer.music.load('Space/space_music.mp3')
             pygame.mixer.music.set_volume(1)
             pygame.mixer.music.play(-1)
             Space_Invader.main_menu()
@@ -225,11 +225,11 @@ def run_interface():
             screen.blit(BG,(0,0)) 
             
             
-            my_font = pygame.font.Font("INVASION2000.ttf", 57)
+            my_font = pygame.font.Font("Space/INVASION2000.ttf", 57)
 
             info_label = my_font.render("Welcome  To  The  Arcade" ,True, (255,255,255))
             
-            copy_right_font= pygame.font.Font("Bitter-Bold.otf",15)
+            copy_right_font= pygame.font.Font("Space/Bitter-Bold.otf",15)
             copy_right_label =  copy_right_font.render("© 2020 Armaan And Girik" ,True, (255,255,255))
           
             screen.blit(info_label, (40,50))
