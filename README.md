@@ -22,6 +22,6 @@ python the_arcade.py
 # Upcoming Updates:
 Songs by more artists, more games!!!
 
-#Exe File:
+# Exe File:
 If your looking for the exe for this entire project:
 [Click Here](https://www.google.com/)
