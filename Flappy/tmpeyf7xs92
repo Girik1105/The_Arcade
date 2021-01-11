@@ -1,0 +1,245 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Dec 28 00:57:16 2020
+
+@author: girik
+"""
+
+import pygame, sys, os, random
+
+def main_flappy():
+
+    pygame.init()
+    
+    
+    #font for the game
+    game_font = pygame.font.Font('font/04B_19.TTF', 20) 
+    
+    
+    #screen size
+    screen = pygame.display.set_mode((470, 650), )
+    pygame.display.set_caption("Flappy Penguin")
+    
+    #clock for framerate
+    clock = pygame.time.Clock()
+    
+    #importing background
+    background = pygame.image.load(os.path.join('Graphics', 'background_wo_base.png')).convert()
+    background = pygame.transform.scale(background, (470,650))
+    
+    #importing base
+    base = pygame.image.load(os.path.join('Graphics', 'base.png')).convert()
+    base = pygame.transform.scale(base, (470,150))
+    
+    
+    #Creting bird with rectangle in pygame
+    bird = pygame.image.load(os.path.join('Graphics', 'pen.png'))
+    bird = pygame.transform.scale(bird, (43, 37))
+    bird_rect = bird.get_rect(center = (100, 250))
+    
+    
+    #bird rotator
+    def rotate_bird(bird_rotate):
+        new_bird = pygame.transform.rotozoom(bird_rotate, 180.0, 1.0)
+        return new_bird
+     
+    #pipes
+    
+    pipe_surface = pygame.image.load(os.path.join('Graphics', 'pole_lower.png'))
+    pipe_surface = pygame.transform.scale(pipe_surface, (150, 277))
+    
+    
+    pipe_list = []
+    
+    PIPE_SPAWNER = pygame.USEREVENT
+    pygame.time.set_timer(PIPE_SPAWNER, 1500) #controls the time for spawning pipes
+    
+    
+    pipe_height = [270, 325, 425]
+    
+    def pipe_creator():
+        random_pipe_position = random.choice(pipe_height)
+        bottom_new_pipe = pipe_surface.get_rect(midtop = (470, random_pipe_position))
+        top_pipe = pipe_surface.get_rect(midtop = (470, random_pipe_position - 500))
+        return bottom_new_pipe, top_pipe
+    
+    def pipe_spacer(pipes):
+        for pipe in pipes:
+            pipe.centerx -= 5
+            
+        return pipes
+        
+    def draw_pipes(pipes):
+        for pipe in pipes:
+            if pipe.bottom >= 470:
+                screen.blit(pipe_surface, pipe)
+            else:
+                flip_pipe = pygame.transform.flip(pipe_surface, False, True)
+                screen.blit(flip_pipe, pipe)
+            
+    
+    #COLLISION CHECKER
+    def check_collision(pipes):
+        for pipe in pipes:
+            if bird_rect.colliderect(pipe):
+                
+                return False
+            
+        if bird_rect.top <= -50 or bird_rect.bottom >= 520:
+            
+            return False
+        
+        return True
+                
+    
+    
+    
+    #GAME VARIABLES
+    gravity = 0.20 # controls how much the bird will fall 
+    bird_movement = 0
+    
+    game_active = False
+    
+    score = 0 
+    high_score = 0
+    
+    
+    #draws the base
+    def draw_base():
+        screen.blit(base,(base_position, 520)) 
+        screen.blit(base,(base_position + 470, 520)) 
+    
+    
+    base_position = 0
+    
+    
+    
+    #font for the score
+    def score_surface(game_state):
+        
+        if game_state == 'main_game':
+        
+            score_surface = game_font.render('score: '+str(int(score)), True, (255,255,255))
+            score_rect = score_surface.get_rect(center = (60, 30))
+            screen.blit(score_surface, score_rect)
+        
+        if game_state == 'game_over':
+    
+            score_surface = game_font.render('score: '+str(int(score)), True, (255,255,255))
+            score_rect = score_surface.get_rect(center = (60, 30))
+            screen.blit(score_surface, score_rect)
+            
+            high_score_surface = game_font.render('Highscore: '+str(int(high_score)), True, (255,255,255))
+            high_score_rect = score_surface.get_rect(center = (60, 65))
+            screen.blit(high_score_surface, high_score_rect)
+        
+    
+    def update_score(score, high_score):
+        if score > high_score:
+            high_score = score
+        return high_score
+    
+    
+    
+    game_over_surface = pygame.image.load(os.path.join('Graphics', 'start_game.png'))
+    game_over_surface = pygame.transform.scale(game_over_surface, (450, 125))
+    game_over_surface_rect= game_over_surface.get_rect(center = (235, 225))
+    
+    
+    
+    
+    #main game loop
+    while True:
+            
+        for event in pygame.event.get():
+            
+            #quits game
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            
+            if event.type == pygame.KEYDOWN: #checks if any of the button is pressed
+                        
+                if event.key == pygame.K_SPACE and game_active == True:
+                    bird_movement = 0
+                    bird_movement -= 8 #gives bird jump (change to lower or increase the senstivity)
+                
+                    
+                if event.key == pygame.K_SPACE and game_active == False:
+                    
+                    game_active = True
+         
+                    pipe_list.clear()
+                    bird_rect.center = (100, 150)
+                    bird_movement = 0
+    
+                    score = 0        
+    
+            #pipe spawner 
+            if event.type == PIPE_SPAWNER:
+                pipe_list.extend(pipe_creator())
+            
+        #background
+        screen.blit(background,(0,0))
+        
+        
+        #bird movement
+        bird_movement += gravity 
+        
+        rotate_bird(bird)
+        
+        bird_rect.centery += bird_movement
+        
+        if game_active:
+            
+            #bird
+            screen.blit(bird, bird_rect)
+        
+            #collision checker
+            game_active = check_collision(pipe_list)
+        
+        
+            #pipes
+            pipe_list = pipe_spacer(pipe_list)
+            draw_pipes(pipe_list)
+            
+            score_surface('main_game')
+            score += 0.006
+        
+        else:        
+            
+            #game over image
+            screen.blit(game_over_surface, game_over_surface_rect)
+            press_spacebar = game_font.render('Press spacebar to start', True, (255,255,255))
+            press_spacebar_rect = press_spacebar.get_rect(center = (225, 315))
+            screen.blit(press_spacebar, press_spacebar_rect)
+        
+            #highscore
+            high_score = update_score(score, high_score)
+                
+            #score
+            score_surface('game_over')
+    
+        
+        #floor
+        base_position -= 1
+        
+        #base
+        draw_base()
+    
+        #resets base so that it looks like a continues animation
+        if base_position <= -470:
+            base_position = 0
+    
+    
+        pygame.display.update()
+    
+        clock.tick(120)  #Controls Framerate
+    
+    
+# main_flappy()  
+    
+    
+def trial():
+    print('hi')
+
