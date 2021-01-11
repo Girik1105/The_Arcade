@@ -10,3 +10,4 @@ To make sure The Arcade works, run the following command on your command prompt:
 python3 -m pip install -r requirements.txt
 ```
 
+![alt image](The_arcade.png)
