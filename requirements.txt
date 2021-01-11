@@ -1,0 +1,6 @@
+pygame
+mutagen
+pillow
+threading
+tkinter
+
