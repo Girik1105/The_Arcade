@@ -4,9 +4,7 @@ This arcade includes a juke box and 3 games which are:
 -Flappy Penguin
 -Space Invader
 -Ping prog
-This project was made completely on python mainly using
-##pygame
-and we used other libraries like:
+This project was made completely on python mainly using __pygame__ and we used other libraries like:
 -tkinter
 -threading
 -mutagen
