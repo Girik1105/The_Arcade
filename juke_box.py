@@ -292,8 +292,8 @@ def play_music():
 
 root=Tk()
 root.geometry('650x600')
-# root.iconbitmap('icons/eminem_icon.ico')
-root.title(" EMINEM JUKE BOX")
+root.iconbitmap('JukeBox/icons/eminem_icon.ico')
+root.title("JUKE BOX")
 
 
 
@@ -307,7 +307,7 @@ song_box= Listbox(root, bg="black", fg="green",font=8,height=15, width=65,select
 song_box.pack(anchor="n",pady=20)
 
 # creating name label
-name_label=Label(controls_frame,text="EMINEM")
+name_label=Label(controls_frame,text="JUKE BOX")
 name_label.config(font=('Arial',25))
 name_label.grid(row=0,column=2,pady=5,sticky=N)
 
